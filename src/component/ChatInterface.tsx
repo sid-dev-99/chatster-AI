@@ -4,7 +4,7 @@ import { useChat } from "ai/react"
 
 export const ChatInterface = ({sessionId}:{sessionId:string}) => {
 
-    const {messages,handleInputChange,input} = useChat({
+    const {messages,handleInputChange,input,handleSubmit} = useChat({
         api:"/api/chat-route",
         body:{sessionId}
     })
@@ -12,9 +12,13 @@ export const ChatInterface = ({sessionId}:{sessionId:string}) => {
     return(
         <div className="min-h-full bg-slate-800">
             <div className="bg-zinc-700">
-                {JSON.stringify(messages)}
+                <Messages/>
             </div>
-            <input type="text" onChange={handleInputChange} value={input}></input>
+            <form onSubmit={handleSubmit}>
+            <input className="text-black" type="text" onChange={handleInputChange} value={input}></input>
+            <button type="submit">send</button>
+            </form>
+
         </div>
     )
 
