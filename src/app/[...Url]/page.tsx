@@ -1,5 +1,8 @@
 
 import { ragChat } from "@/lib/rag-chat";
+import { RedirectStatusCode } from "next/dist/client/components/redirect-status-code";
+import {cookies} from "next/headers";
+import { ChatInterface } from "@/component/ChatInterface";    
 
 interface pageProps{
     params:{
@@ -30,19 +33,22 @@ const page = async ({params}:pageProps) => {
         source: modifiedUrl
     })
 
+    const sessionId = "demo-sesion-id"
 
-    const isExists = await redis.sismember("urls", modifiedUrl)
+    const isExists = await redis.sismember("urlsIndexes", modifiedUrl)
 
     //const response = await ragChat.chat()
 
     if(!isExists){
-        
+        await redis.sadd("urlsIndexes",modifiedUrl) 
     }
 
     return (
-        <messages>hey from the compoentn</messages>
+        <ChatInterface sessionId={sessionId}/>
     )
 }
 
 
-export default page
+export default page;
+
+//implement cookies

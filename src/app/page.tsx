@@ -1,3 +1,4 @@
+
 export default function Home() {
   return (
 
@@ -5,7 +6,6 @@ export default function Home() {
       <div>
        <button className='text-red-500 bg-yellow-300' >Click Me
         </button>
-        <page/>
       </div>
   );
 }
